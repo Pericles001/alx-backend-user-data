@@ -7,9 +7,8 @@ Personal data
 import logging
 import os
 import re
-import mysql.connector
 from typing import List
-
+import mysql.connector
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
