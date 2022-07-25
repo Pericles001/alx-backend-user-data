@@ -2,6 +2,7 @@
 """
 Route module for the API
 """
+from importlib.resources import path
 import json
 from api.v1.auth.auth import Auth
 from api.v1.auth.basic_auth import BasicAuth
@@ -43,6 +44,22 @@ def forbidden(error) -> str:
     Forbidden handler
     """
     return jsonify({"error": "Forbidden"}), 403
+
+
+@app.before_request
+def before():
+    """
+    Before request
+    """
+    if auth:
+        paths = ['/api/v1/status/',
+                 '/api/v1/unauthorized/', '/api/v1/forbidden/']
+        if not auth.require_auth(request.path, paths):
+            return
+        if not auth.authorization_header(request):
+            abort(401)
+        if not auth.current_user(request):
+            abort(403)
 
 
 if __name__ == "__main__":
