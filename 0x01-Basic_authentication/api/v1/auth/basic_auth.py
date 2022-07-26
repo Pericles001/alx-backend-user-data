@@ -3,6 +3,8 @@
 Basic auth
 """
 
+
+from requests import head
 from api.v1.auth.auth import Auth
 import base64
 from models.user import User
@@ -62,3 +64,13 @@ class BasicAuth(Auth):
         for u in user:
             if u.is_valid_password(user_pwd):
                 return u
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """
+         overloads Auth and retrieves the User instance for a request
+        """
+        header = self.authorization_header(request)
+        b64header = self.extract_base64_authorization_header(header)
+        decoded = self.decode_base64_authorization_header(b64header)
+        user_creds = self.extract_base64_authorization_header(decoded)
+        return self.user_object_from_credentials(*user_creds)
