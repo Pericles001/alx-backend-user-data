@@ -14,26 +14,13 @@ class Auth:
         """
          returns False - path and excluded_paths
         """
-        if not path or not excluded_paths:
-            return True
-        path = path + '/' if path[-1] != '/' else path
-        has_wildcard = any(x.endswith("*") for x in excluded_paths)
-        if not has_wildcard:
-            return path not in excluded_paths
-        for e in excluded_paths:
-            if e.endswith("*"):
-                if path.startswith(e[:-1]):
-                    return False
-            if path == e:
-                return False
-        return True
+        return False
 
     def authorization_header(self, request=None) -> str:
         """
         returns None - request
         """
-        if request:
-            return request.headers.get("Authorization")
+        return None
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
