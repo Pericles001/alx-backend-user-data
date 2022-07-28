@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-""" 3. Auth class
+"""
+3. Auth class
 """
 
 from flask import request
@@ -12,7 +13,7 @@ class Auth:
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
-         returns False - path and excluded_paths
+        returns False - path and excluded_paths
         """
         return False
 
