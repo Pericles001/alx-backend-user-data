@@ -14,7 +14,6 @@ public method def current_user(self, request=None) -> TypeVar('User'): that retu
 
 from flask import request
 from typing import TypeVar, List
-
 User = TypeVar('User')
 
 class Auth:
@@ -26,15 +25,18 @@ class Auth:
         """
         returns False - path and excluded_paths
         """
-        
-        
+        return False
+
+
     def authorization_header(self, request=None) -> str:
         """
         returns None - request
         """
-    
-    
-    def current_user(self, request=None) -> TypeVar('User'):
+        return None
+
+
+    def current_user(self, request=None) -> User:
         """
         returns None - request
         """
+        return None
