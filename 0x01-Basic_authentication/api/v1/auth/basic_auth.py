@@ -59,10 +59,8 @@ class BasicAuth(Auth):
         """
         overloads Auth and retrieves the User instance for a request
         """
-        auth_header = self.authorization_header(request)
-        base64_sha = self.extract_base64_authorization_header(auth_header)
-        decoded_sha = self.decode_base64_authorization_header(base64_sha)
-        credentials = self.extract_user_credentials(decoded_sha)
-        user = self.user_object_from_credentials(
-            credentials[0], credentials[1])
-        return user
+        header = self.authorization_header(request)
+        b64header = self.extract_base64_authorization_header(header)
+        decoded = self.decode_base64_authorization_header(b64header)
+        user_creds = self.extract_user_credentials(decoded)
+        return self.user_object_from_credentials(*user_creds)
