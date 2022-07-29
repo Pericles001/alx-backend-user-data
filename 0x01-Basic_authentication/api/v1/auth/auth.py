@@ -3,7 +3,7 @@
 Auth class
 """
 
-from tkinter.messagebox import NO
+from tabnanny import check
 from flask import request
 from typing import TypeVar, List
 User = TypeVar('User')
@@ -18,9 +18,12 @@ class Auth:
         """
         returns False - path and excluded_paths
         """
+        check = path
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
             return True
-        if path in excluded_paths:
+        if path[-1] != "/":
+            check += "/"
+        if check in excluded_paths or path in excluded_paths:
             return False
         return True
 
