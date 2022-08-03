@@ -32,3 +32,13 @@ class SessionAuth(Auth):
         if not session_id or type(session_id) != str:
             return
         return SessionAuth.user_id_by_session_id.get(session_id, None)
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """
+        current_user.
+        """
+        if request:
+            session_cookie = self.session_cookie(request)
+            if session_cookie:
+                user_id = self.user_id_for_session_id(session_cookie)
+                return User.get(user_id)
