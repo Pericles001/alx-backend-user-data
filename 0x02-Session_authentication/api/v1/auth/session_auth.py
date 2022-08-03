@@ -8,6 +8,7 @@ from typing import TypeVar
 from uuid import uuid4
 from models.user import User
 
+
 class SessionAuth(Auth):
     """
     Session auth class
