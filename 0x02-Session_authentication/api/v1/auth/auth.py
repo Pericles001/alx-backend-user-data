@@ -6,6 +6,7 @@ Auth class
 from tabnanny import check
 from flask import request
 from typing import TypeVar, List
+from os import getenv
 User = TypeVar('User')
 
 
@@ -40,3 +41,11 @@ class Auth:
         returns None - request
         """
         return None
+
+    def session_cookie(self, request=None):
+        """
+        returns a cookie value from a request
+        """
+        if request:
+            session_name = getenv("SESSION_NAME")
+            return request.cookie.get(session_name, None)
