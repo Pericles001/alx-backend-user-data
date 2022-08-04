@@ -41,3 +41,15 @@ class DB:
         session.add(user)
         session.commit()
         return user
+
+    def find_user(self, **kwargs) -> User:
+        """
+        Find user method
+        """
+        if not kwargs or any(x in VALID_FIELDS for x in kwargs):
+            raise InvalidRequestError
+        session = self.__session
+        try:
+            session.query(User).filter_by(**kwargs).one()
+        except Excetion:
+            raise NoResultFound
