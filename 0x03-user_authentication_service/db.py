@@ -34,22 +34,8 @@ class DB:
         """
         Add user method
         """
-        if not email or not hashed_password:
-            return
         user = User(email=email, hashed_password=hashed_password)
         session = self._session
         session.add(user)
         session.commit()
         return user
-
-def find_user_by(self, **kwargs) -> User:
-        """
-        find_user_by.
-        """
-        if not kwargs or any(x not in VALID_FIELDS for x in kwargs):
-            raise InvalidRequestError
-        session = self._session
-        try:
-            return session.query(User).filter_by(**kwargs).one()
-        except Exception:
-            raise NoResultFound
